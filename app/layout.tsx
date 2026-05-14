@@ -3,6 +3,9 @@ import { Space_Mono, Inter } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 
+// 👇 add your floating button import
+import WhatsAppButton from "@/components/WhatsAppButton"
+
 const spaceMono = Space_Mono({ 
   subsets: ["latin"],
   weight: ["400", "700"],
@@ -15,26 +18,25 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: 'EzekielCrrypt | Full Stack Developer',
+  title: 'EzekielCrrypt | Full Stack Developer | Ezekiel Chikezie | Web3 Enthusiast| Blockchain Developer| Software Engineer| Crypto Innovator',
   description: 'Full-stack developer passionate about creating digital experiences that bridge creativity and functionality.',
-  generator: 'v0.app',
-  keywords: ['developer', 'portfolio', 'full-stack', 'react', 'nextjs', 'typescript'],
+  keywords: ['developer', 'portfolio','Ezekiel chikezie' ,'full-stack','backend-developer','mobile-developer', 'react', 'nextjs', 'typescript',"web development", "software engineering", "programming", "coding", "technology", "innovation", "web design", "user experience","blockchain", "web3", "cryptocurrency", "decentralized applications", "smart contracts", "solidity", "node.js", "express.js", "mongodb", "firebase", "tailwindcss", "react.js", "next.js", "typescript", "javascript", "python", "telegram bot", "wax blockchain", "prediction markets", "vechain", "decentralized finance", "defi", "nft", "non-fungible tokens", "crypto trading", "crypto analytics", "portfolio management", "price alerts", "web3 marketing", "community growth", "content strategy", "viral content", "blockchain ecosystem"],
   icons: {
     icon: [
       {
-        url: '/icon-light-32x32.png',
+        url: '/Ezekielcrrypt.png',
         media: '(prefers-color-scheme: light)',
       },
       {
-        url: '/icon-dark-32x32.png',
+        url: '/Ezekielcrrypt.png',
         media: '(prefers-color-scheme: dark)',
       },
       {
-        url: '/icon.svg',
+        url: '/Ezekielcrrypt.png',
         type: 'image/svg+xml',
       },
     ],
-    apple: '/apple-icon.png',
+    apple: '/Ezekielcrrypt.png',
   },
 }
 
@@ -46,7 +48,14 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body className={`${inter.variable} ${spaceMono.variable} font-sans antialiased`}>
+        
+        {/* Page content */}
         {children}
+
+        {/* Floating WhatsApp Button (shows on all pages) */}
+        <WhatsAppButton />
+
+        {/* Analytics (only production) */}
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
     </html>

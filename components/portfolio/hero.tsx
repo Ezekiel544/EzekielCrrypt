@@ -140,7 +140,7 @@ export function Hero() {
             size="lg"
             className="font-mono tracking-wider w-full sm:w-auto sm:min-w-[180px] text-sm sm:text-base"
           >
-            <a href="/resume.pdf" download>
+            <a href="/EzekielCV.pdf" download>
               <FileDown className="mr-2 h-4 w-4" />
               DOWNLOAD CV
             </a>

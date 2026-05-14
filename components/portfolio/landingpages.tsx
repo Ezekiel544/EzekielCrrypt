@@ -6,70 +6,71 @@ import { useRef, useState } from "react"
 import { Github, ExternalLink } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Image from "next/image"
-import Piptracker from '../img/piptracker.png'
-import Vetpredict from '../img/vetpredict.png'
-import Tokicard from '../img/tokicard.png'
-import Covapadi from '../img/covapadi.png'
-import Max from '../img/max.jpg'
+import Primefit from '../img/primefit.png'
+import Cocktail from '../img/cocktail.png'
+import Africloth from '../img/africloth.png'
+import Olacrrypt from '../img/olacrrypt.png'
+import Pebs from '../img/pebs.png'
+import Openquanta from '../img/openquanta.png'
 const projects = [
   {
-    title: "PIP TRACKER.WEB",
+    title: "PRIME FIT.WEB",
     description:
-      "A powerful trading analytics platform designed to help traders track performance, analyze strategies, and make data-driven decisions with real-time insights and professional-grade metrics.",
-    image: Piptracker,
-    technologies: ["React", "Node.js", "Firebase", "Express"],
+      "A high-converting gym landing page built to showcase fitness services, inspire action, and turn visitors into members through a bold and engaging user experience.",
+    image: Primefit,
+    technologies: ["React", "Tailwind", "Vercel", "Express"],
     status: "LIVE",
-    github: "https://github.com/Ezekiel544/Pip-tracker",
-    demo: "https://pip-tracker-p.vercel.app",
+    github: "https://github.com/Ezekiel544/primefit.git",
+    demo: "https://primefit-kappa.vercel.app",
   },
   {
-    title: "Vetpredict.WEB",
+    title: "COCKTAIL.WEB",
     description:
-      "the first prediction market platform on the VeChain blockchain. Designed and built a decentralized application enabling users to create and participate in prediction markets.",
-    image: Vetpredict,
-    technologies: ["Next.js", "Express.js", "Tailwind", "solidity"],
+      "A dynamic tour event landing page designed to showcase event details, engage attendees, and drive ticket registrations through a clear and immersive experience.",
+    image: Cocktail,
+    technologies: ["React.js", "Github", "Tailwind", "mongoDB"],
     status: "LIVE",
-    github: "https://github.com/Ezekiel544/vetpredict-frontend",
-    demo: "https://vetpredict-frontend.vercel.app",
+    github: "https://cocktailsandtakeaways.vercel.app",
+    demo: "https://github.com/Ezekiel544/cocktailsandtakeaways.git",
   },
   {
-    title: "MAX.BOT",
-    description: "A Telegram-based tap-to-earn bot built on the WAX blockchain, allowing users to earn rewards through interactive gameplay mechanics.",
-    image: Max,
-    technologies: ["Python", "Telegram Bot API", "Firebase","Webhooks"],
+    title: "AFRICLOTH.WEB",
+    description: "A stylish fashion landing page built to present clothing collections, capture attention through bold visuals, and drive product engagement and sales.",
+    image: Africloth,
+    technologies: ["React", "Tailwind", "Vercel", "Github"] ,
     status: "LIVE",
-    github: "https://github.com/Ezekiel544/tgbot.git",
-    demo: "@firthtum_bot",
+    github: "https://github.com/Ezekiel544/Africloth.git",
+    demo: "https://africloth.vercel.app",
   },
   {
-    title: "Tokicard.APP",
+    title: "PEBS.WEB",
     description:
-      "A  virtual dollar card used and managed through an app. It allows users to make online purchases, track spending, and manage their finances with ease.",
-    image: Tokicard,
-    technologies: ["React", "TailwindCSS"],
-    status: "BETA",
-    github: "https://tokicardai.com",
-    demo: "https://tokicardai.com",
-  },
-  {
-    title: "COVAPADI.WEB",
-    description:
-      "A gadget protection platform that partners with licensed insurance companies to provide users with simple, accessible, and user-friendly device protection services.",
-    image: Covapadi,
-    technologies: ["React.js", "EmailJS", "Tailwind", "Redux"],
-    status: "DEVELOPMENT",
-    github: "https://www.covapadi.com",
-    demo: "https://www.covapadi.com",
-  },
-  {
-    title: "CRYPTO-TRACKER.WEB",
-    description:
-      "Real-time cryptocurrency tracking dashboard with portfolio management and price alerts.",
-    image: "https://images.unsplash.com/photo-1621761191319-c6fb62004040?w=600&h=400&fit=crop",
-    technologies: ["Next.js", "Chart.js", "CoinGecko API", "Tailwind"],
+      "A landing page built for a Web3 marketer, VC analyst, raid leader, and content clipper to showcase their expertise in community growth, storytelling, and viral content strategy within the blockchain space.",
+    image: Pebs,
+    technologies: ["React", "TailwindCSS", "Vercel" , "Github"],
     status: "LIVE",
-    github: "https://github.com",
-    demo: "https://example.com",
+    github: "https://github.com/Ezekiel544/Peb.git",
+    demo: "https://peb-beta.vercel.app",
+  },
+  {
+    title: "OLA-CRRYPT.WEB",
+    description:
+      "A landing page built for a Web3 marketer to highlight their skills in traffic generation, community growth, and marketing strategy within the blockchain ecosystem.",
+    image: Olacrrypt,
+    technologies: ["React.js", "Tailwind", "Vercel", "Github"],
+    status: "LIVE",
+    github: "https://github.com/Ezekiel544/olacrrypt.git",
+    demo: "https://olacrrypt.vercel.app",
+  },
+  {
+    title: "OPENQUANTA.WEB",
+    description:
+      "Contributed to the landing page of a decentralized research platform enabling NFT-authored publishing and open-market monetization.",
+    image: Openquanta,
+    technologies: ["Next.js", "Tailwind", "Vercel", "Github" ],
+    status: "LIVE",
+    github: "https://openquanta.vercel.app",
+    demo: "https://openquanta.vercel.app",
   },
 ]
 
@@ -98,7 +99,7 @@ const itemVariants = {
   },
 }
 
-export function Projects() {
+export function Landingpages() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
   const [filter, setFilter] = useState<string | null>(null)
@@ -108,7 +109,7 @@ export function Projects() {
     : projects
 
   return (
-    <section id="projects" className="py-12 sm:py-16 md:py-24 lg:py-32 bg-background">
+    <section id="landingpages" className="py-12 sm:py-16 md:py-24 lg:py-32 bg-background">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           ref={ref}
@@ -120,12 +121,11 @@ export function Projects() {
           <motion.div variants={itemVariants} className="text-center mb-8 sm:mb-12">
             <h2 className="font-mono font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl mb-3 sm:mb-4">
               {/* PROJECTS<span className="text-accent">.</span>DIR */}
-                 Selected Work
+                 Featured Landing Pages
             </h2>
             <div className="w-12 sm:w-16 h-1 bg-accent mx-auto mb-6 sm:mb-8" />
             <p className="font-mono text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto leading-relaxed px-2">
-              A collection of projects showcasing different aspects of modern web
-              development, from user interfaces to backend architecture.
+            A collection of landing pages showcasing modern web development, from user interfaces to backend architecture.
             </p>
           </motion.div>
 

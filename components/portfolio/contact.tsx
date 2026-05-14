@@ -1,9 +1,19 @@
 "use client"
 
-import { motion } from "framer-motion"
-import { useInView } from "framer-motion"
+import { motion, useInView } from "framer-motion"
 import { useRef, useState } from "react"
-import { Mail, Phone, MapPin, Send, Github, Linkedin, Twitter, Instagram } from "lucide-react"
+import emailjs from "@emailjs/browser"
+import {
+  Mail,
+  Phone,
+  MapPin,
+  Send,
+  Github,
+  Linkedin,
+  Twitter,
+  Instagram,
+} from "lucide-react"
+
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
@@ -58,27 +68,64 @@ const itemVariants = {
 
 export function Contact() {
   const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: "-100px" })
+
+  const isInView = useInView(ref, {
+    once: true,
+    margin: "-100px",
+  })
+
   const [formState, setFormState] = useState({
     name: "",
     email: "",
     subject: "",
     message: "",
   })
+
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [success, setSuccess] = useState(false)
+  const [error, setError] = useState(false)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+
     setIsSubmitting(true)
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1000))
-    setIsSubmitting(false)
-    setFormState({ name: "", email: "", subject: "", message: "" })
-    alert("Message sent successfully!")
+    setSuccess(false)
+    setError(false)
+
+    try {
+      await emailjs.send(
+        "service_6fypb7a",
+        "template_97iz70f",
+        {
+          name: formState.name,
+          email: formState.email,
+          subject: formState.subject,
+          message: formState.message,
+        },
+        "LVZFQEZgim5Uvl9Ea"
+      )
+
+      setSuccess(true)
+
+      setFormState({
+        name: "",
+        email: "",
+        subject: "",
+        message: "",
+      })
+    } catch (err) {
+      console.error(err)
+      setError(true)
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
-    <section id="contact" className="py-12 sm:py-16 md:py-24 lg:py-32 bg-muted/30">
+    <section
+      id="contact"
+      className="py-12 sm:py-16 md:py-24 lg:py-32 bg-muted/30"
+    >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           ref={ref}
@@ -87,15 +134,19 @@ export function Contact() {
           animate={isInView ? "visible" : "hidden"}
         >
           {/* Section Title */}
-          <motion.div variants={itemVariants} className="text-center mb-8 sm:mb-12 md:mb-16">
+          <motion.div
+            variants={itemVariants}
+            className="text-center mb-8 sm:mb-12 md:mb-16"
+          >
             <h2 className="font-mono font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl mb-3 sm:mb-4">
-              {/* CONTACT<span className="text-accent">.</span>EXE */}
               CONTACT ME
             </h2>
+
             <div className="w-12 sm:w-16 h-1 bg-accent mx-auto mb-6 sm:mb-8" />
+
             <p className="font-mono text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto leading-relaxed px-2">
-              Ready to collaborate on your next project? Let&apos;s connect and build
-              something amazing together.
+              Ready to collaborate on your next project? Let&apos;s connect and
+              build something amazing together.
             </p>
           </motion.div>
 
@@ -114,27 +165,36 @@ export function Contact() {
                         <FieldLabel className="font-mono text-[10px] sm:text-xs tracking-wider">
                           NAME
                         </FieldLabel>
+
                         <Input
                           type="text"
                           placeholder="Your name"
                           value={formState.name}
                           onChange={(e) =>
-                            setFormState({ ...formState, name: e.target.value })
+                            setFormState({
+                              ...formState,
+                              name: e.target.value,
+                            })
                           }
                           className="font-mono text-xs sm:text-sm"
                           required
                         />
                       </Field>
+
                       <Field>
                         <FieldLabel className="font-mono text-[10px] sm:text-xs tracking-wider">
                           EMAIL
                         </FieldLabel>
+
                         <Input
                           type="email"
                           placeholder="your@email.com"
                           value={formState.email}
                           onChange={(e) =>
-                            setFormState({ ...formState, email: e.target.value })
+                            setFormState({
+                              ...formState,
+                              email: e.target.value,
+                            })
                           }
                           className="font-mono text-xs sm:text-sm"
                           required
@@ -146,12 +206,16 @@ export function Contact() {
                       <FieldLabel className="font-mono text-[10px] sm:text-xs tracking-wider">
                         SUBJECT
                       </FieldLabel>
+
                       <Input
                         type="text"
                         placeholder="Project inquiry"
                         value={formState.subject}
                         onChange={(e) =>
-                          setFormState({ ...formState, subject: e.target.value })
+                          setFormState({
+                            ...formState,
+                            subject: e.target.value,
+                          })
                         }
                         className="font-mono text-xs sm:text-sm"
                         required
@@ -162,16 +226,32 @@ export function Contact() {
                       <FieldLabel className="font-mono text-[10px] sm:text-xs tracking-wider">
                         MESSAGE
                       </FieldLabel>
+
                       <Textarea
                         placeholder="Tell me about your project..."
                         value={formState.message}
                         onChange={(e) =>
-                          setFormState({ ...formState, message: e.target.value })
+                          setFormState({
+                            ...formState,
+                            message: e.target.value,
+                          })
                         }
                         className="font-mono text-xs sm:text-sm min-h-[120px] sm:min-h-[150px] resize-none"
                         required
                       />
                     </Field>
+
+                    {success && (
+                      <p className="text-green-500 font-mono text-sm">
+                        Message sent successfully!
+                      </p>
+                    )}
+
+                    {error && (
+                      <p className="text-red-500 font-mono text-sm">
+                        Something went wrong. Please try again.
+                      </p>
+                    )}
 
                     <Button
                       type="submit"
@@ -179,6 +259,7 @@ export function Contact() {
                       className="w-full font-mono tracking-wider text-xs sm:text-sm"
                     >
                       <Send className="mr-2 h-3 w-3 sm:h-4 sm:w-4" />
+
                       {isSubmitting ? "SENDING..." : "SEND MESSAGE"}
                     </Button>
                   </FieldGroup>
@@ -192,21 +273,25 @@ export function Contact() {
                 GET IN TOUCH
               </h3>
 
-              {/* Contact Cards */}
               <div className="space-y-3 sm:space-y-4">
                 {contactInfo.map((info) => (
                   <motion.div
                     key={info.label}
-                    whileHover={{ x: 8, transition: { duration: 0.2 } }}
+                    whileHover={{
+                      x: 8,
+                      transition: { duration: 0.2 },
+                    }}
                     className="border border-border bg-card p-3 sm:p-4 flex items-center gap-3 sm:gap-4 hover:border-foreground transition-colors"
                   >
                     <div className="p-1.5 sm:p-2 bg-muted">
                       <info.icon className="h-4 w-4 sm:h-5 sm:w-5 text-foreground" />
                     </div>
+
                     <div className="min-w-0 flex-1">
                       <p className="font-mono text-[10px] sm:text-xs text-muted-foreground tracking-wider">
                         {info.label}
                       </p>
+
                       {info.href ? (
                         <a
                           href={info.href}
@@ -215,55 +300,14 @@ export function Contact() {
                           {info.value}
                         </a>
                       ) : (
-                        <p className="font-mono text-xs sm:text-sm break-words">{info.value}</p>
+                        <p className="font-mono text-xs sm:text-sm break-words">
+                          {info.value}
+                        </p>
                       )}
                     </div>
                   </motion.div>
                 ))}
               </div>
-
-              {/* Social Links */}
-              <div className="pt-2 sm:pt-4">
-                <h4 className="font-mono font-bold text-sm sm:text-base md:text-lg tracking-wider mb-3 sm:mb-4">
-                  SOCIAL LINKS
-                </h4>
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-4">
-                  {socialLinks.map((social) => (
-                    <motion.a
-                      key={social.label}
-                      href={social.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      whileHover={{ y: -4, transition: { duration: 0.2 } }}
-                      className="border border-border bg-card p-3 sm:p-4 flex flex-col items-center gap-1.5 sm:gap-2 hover:border-foreground transition-colors"
-                    >
-                      <social.icon className="h-5 w-5 sm:h-6 sm:w-6" />
-                      <span className="font-mono text-[10px] sm:text-xs text-center">
-                        {social.label}
-                      </span>
-                    </motion.a>
-                  ))}
-                </div>
-              </div>
-
-              {/* Availability Status */}
-              <motion.div
-                variants={itemVariants}
-                className="bg-foreground text-background p-4 sm:p-6 mt-6 sm:mt-8"
-              >
-                <div className="flex items-center gap-2 mb-2">
-                  <span className="text-accent font-mono text-sm sm:text-base">&gt;</span>
-                  <span className="font-mono text-xs sm:text-sm tracking-wider">
-                    STATUS: <span className="text-accent">AVAILABLE FOR WORK</span>
-                  </span>
-                </div>
-                <p className="font-mono text-xs sm:text-sm text-background/80">
-                  Currently accepting new projects and collaborations.
-                </p>
-                <p className="font-mono text-xs sm:text-sm text-background/80">
-                  Response time: immediately
-                </p>
-              </motion.div>
             </motion.div>
           </div>
         </motion.div>
